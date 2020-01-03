@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose') 
 
 const app = express();
 const PORT = 8001;
+
+
 
 const wordsRoutes = require('./api/routes/words');
 const wordRoutes = require('./api/routes/word');
@@ -10,6 +13,15 @@ const userRoutes = require('./api/routes/user');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+app.use( (req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	if (req.method === 'OPTIONS') {
+		res.header('Access-Control-Allow-Methods', 'GET, POST');
+		return res.status(200).json({});
+	}
+	next();
+});
 
 app.use('/words', wordsRoutes);
 app.use('/word', wordRoutes);
