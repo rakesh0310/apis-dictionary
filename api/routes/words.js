@@ -1,37 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const mongo = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
+const Word = require('../models/words');
 const checkAuth = require('../middleware/check-auth');
 
-router.post('/randomWord', checkAuth, (req, res, next) => {
+router.post('/randomWord', checkAuth, async (req, res, next) => {
     
-    mongo.connect("mongodb://127.0.0.1:27017/",{
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        },
-        async (err, client) => {
-        if (err){ 
-            throw err;
-        } else {
-            
-            const n = await client.db('dictionary').collection('words').countDocuments();
-            const r = Math.floor(Math.random() * n);
-            
-            const randomElement = await client.db('dictionary').collection('words').find({}).limit(1).skip(r).toArray();
-            if(randomElement.length > 0){
-                
-                res.status(200).json({
-                    message: randomElement[0].word
-                });
-                /*forEach((result, i) => {
-                    console.log(`${i + 1}. name: ${result.word}`);
-                });	*/																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						
-            } else {
-                res.status(404).json({
-                    message: "words not found"
-                });
-            }
-        }
+    
+    mongoose.connect('mongodb+srv://rest-api1:'+process.env.MONGO_ATLAS_PW+'@rest-apis1-mqraa.mongodb.net/test?retryWrites=true&w=majority', {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true
     });
+    const n = await Word.countDocuments().exec();
+    console.log(n);
+    const r = Math.floor(Math.random() * n);
+    Word.find({}).limit(1).skip(r)
+        .exec()
+        .then( words => {
+            if (words.length < 1) {
+                return res.status(401).json({// 404 unAuthorised
+                    message: "data not found"
+                });
+            } else {
+                return res.status(200).send(words[0].word);
+            }
+        });
 });
 module.exports = router;
