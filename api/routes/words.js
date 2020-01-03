@@ -18,7 +18,7 @@ router.post('/randomWord', checkAuth, async (req, res, next) => {
         .exec()
         .then( words => {
             if (words.length < 1) {
-                return res.status(401).json({// 404 unAuthorised
+                return res.status(401).json({// 401 unAuthorised
                     message: "data not found"
                 });
             } else {
