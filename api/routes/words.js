@@ -22,7 +22,10 @@ router.post('/randomWord', checkAuth, async (req, res, next) => {
                     message: "data not found"
                 });
             } else {
-                return res.status(200).send(words[0].word);
+                return res.status(200).json({
+                    id: words[0].word,
+                    word: words[0].word
+                });
             }
         });
 });

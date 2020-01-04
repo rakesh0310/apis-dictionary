@@ -13,7 +13,7 @@ const bcrypt = require('bcrypt');
 
 
 router.post('/signup', (req, res, next) => {
-
+    
     User.find( {email: req.body.email} )
         .exec()
         .then( user => {
@@ -65,6 +65,7 @@ router.delete('/:userId', (req, res, next) => {
 })
 router.post('/login', (req, res, next) => {
     
+    
 
     User.find({ email: req.body.email })
         .exec()
@@ -95,7 +96,7 @@ router.post('/login', (req, res, next) => {
                         );
                         return res.status(200).json({
                             message: 'Authentication Successfull',
-                            token : key
+                            api_key : key
                         });
                     
                 }
