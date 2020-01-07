@@ -2,6 +2,6 @@
     "env": {
         "MONGO_ATLAS_PW": "rest-api1",
         "JWT_KEY": "secret",
-        "PORT": 8000
+        "PORT": 8018
     }
 }

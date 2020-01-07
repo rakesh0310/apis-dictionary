@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Word = require('../models/words');
 const checkAuth = require('../middleware/check-auth');
 
-router.post('/randomWord', checkAuth, async (req, res, next) => {
+router.get('/randomWord', checkAuth, async (req, res, next) => {
     
     
     mongoose.connect('mongodb+srv://rest-api1:'+process.env.MONGO_ATLAS_PW+'@rest-apis1-mqraa.mongodb.net/test?retryWrites=true&w=majority', {

@@ -1,1 +1,1 @@
-{"/stats/ 200":6,"/words/randomWord 200":5,"/user/login 200":1,"/word/:word/definitions 200":1,"/word/:word/examples 200":1,"/word/:word/relatedWords 200":2}
+{"/stats/ 200":6,"/words/randomWord 200":15,"/user/login 200":2,"/word/:word/definitions 200":3,"/word/:word/examples 200":3,"/word/:word/relatedWords 200":4}

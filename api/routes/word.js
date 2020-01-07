@@ -5,7 +5,7 @@ const Word = require('../models/words');
 const checkAuth = require('../middleware/check-auth');
 const mongoose = require('mongoose')
 
-router.post('/:word/definitions', checkAuth, (req, res, next) => {
+router.get('/:word/definitions', checkAuth, (req, res, next) => {
     console.log('at defnitons');
     mongoose.connect('mongodb+srv://rest-api1:'+process.env.MONGO_ATLAS_PW+'@rest-apis1-mqraa.mongodb.net/test?retryWrites=true&w=majority', {
         useNewUrlParser: true, 
@@ -138,7 +138,7 @@ router.get('/createschem', (req, res, next) => {
             });
 });
 */
-router.post('/:word/examples', checkAuth, (req, res, next) => {
+router.get('/:word/examples', checkAuth, (req, res, next) => {
     mongoose.connect('mongodb+srv://rest-api1:'+process.env.MONGO_ATLAS_PW+'@rest-apis1-mqraa.mongodb.net/test?retryWrites=true&w=majority', {
         useNewUrlParser: true, 
         useUnifiedTopology: true
@@ -159,7 +159,7 @@ router.post('/:word/examples', checkAuth, (req, res, next) => {
 });
 
 
-router.post('/:word/relatedWords', checkAuth, (req, res, next) => {
+router.get('/:word/relatedWords', checkAuth, (req, res, next) => {
     mongoose.connect('mongodb+srv://rest-api1:'+process.env.MONGO_ATLAS_PW+'@rest-apis1-mqraa.mongodb.net/test?retryWrites=true&w=majority', {
         useNewUrlParser: true, 
         useUnifiedTopology: true
