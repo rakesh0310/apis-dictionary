@@ -1,6 +1,10 @@
 {
     "env": {
+<<<<<<< HEAD
         "MONGO_ATLAS_PW": "rest123",
+=======
+        "MONGO_ATLAS_PW": "rest-api1",
+>>>>>>> eb8aea1c61788127c5dea8e493ebfa03a1992c0d
         "JWT_KEY": "secret",
         "PORT": 8018
     }

@@ -14,6 +14,7 @@ router.get('/signup', (req, res, next) => {
     res.render('signup');
 });
 
+<<<<<<< HEAD
 router.get('/login', (req, res, next) => {
     res.render('login');
 });
@@ -40,6 +41,46 @@ router.post('/signup', async (req, res, next) => {
             errors,
             email,
             password
+=======
+router.post('/signup', (req, res, next) => {
+    
+    User.find( {email: req.body.email} )
+        .exec()
+        .then( user => {
+            if(user.length >= 1){
+                return res.status(409).json({
+                    message: "Mail Already Exists"
+                });// 409 which means conflict with resources, 422 Un-processable entity 
+            } else {
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
+                    if(err){
+                        return res.status(500).json({
+                            error: err
+                        });
+                    } else {
+                        const user = new User({
+                            _id: new mongoose.Types.ObjectId(),
+                            email: req.body.email,
+                            password: hash
+                        });
+                        user
+                          .save()
+                          .then(result => {
+                            console.log(result);
+                            res.status(201).json({
+                                message: "User Created"
+                            });
+                          })
+                          .catch(err => {
+                            console.log(err);
+                            res.status(500).json({
+                                error: err
+                            })
+                          });
+                    }
+                });
+            }
+>>>>>>> eb8aea1c61788127c5dea8e493ebfa03a1992c0d
         });
     } else {
         const user = await User.find({ email: req.body.email }).exec();
@@ -117,6 +158,7 @@ router.post('/apilogin', async (req, res, next) => {
             }
         }).catch(err => console.log(err));
     
+    
 
 });
 
@@ -146,6 +188,7 @@ router.post('/api/delete', (req, res, next) => {
 
         }).catch(err => console.log(err));
     
+<<<<<<< HEAD
 
 });
 
@@ -161,6 +204,20 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/user/login');
+=======
+                        );
+                        return res.status(200).json({
+                            message: 'Authentication Successfull',
+                            api_key : key
+                        });
+                    
+                }
+                return res.status(401).json({
+                    message:"authentication failed"
+                });
+            });
+        });
+>>>>>>> eb8aea1c61788127c5dea8e493ebfa03a1992c0d
 });
 
 module.exports = router;
