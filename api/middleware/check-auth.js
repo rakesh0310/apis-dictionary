@@ -1,10 +1,6 @@
 const jwt = require('jsonwebtoken');
 module.exports = (req,res, next) => {
     try{
-<<<<<<< HEAD
-=======
-        console.log(req.query);
->>>>>>> eb8aea1c61788127c5dea8e493ebfa03a1992c0d
         const decoded = jwt.verify(req.query.api_key, process.env.JWT_KEY);
         req.userData = decoded;
         next();
