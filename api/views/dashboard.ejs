@@ -1,0 +1,60 @@
+<h1 class="mt-4">Dashboard</h1>
+<div class="div">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Action</th>
+                <th scope="col">Date of Creation</th>
+                <th scope="col expires">Expires/Hours</th>
+                <th scope="col">KEY</th>
+            </tr>
+        </thead>
+        <% if (user.api_key.length > 0) {%>
+        <tbody>
+            <% user.api_key.forEach((key) => { %>
+            <tr class="table-secondary">
+                <td>
+                    <form action="/user/api/delete" method="post">
+                        <% const idkey = key._id %>
+                        <input type="submit" name="<%=idkey%>" value="DEL" class="btn btn-primary" />
+                    </form>
+                </td>
+                <td> <%= key.date %> </td>
+                <td> <%= key.exHours - ((Date.now()-key.Dvalue)/1000)/3600 > 0 ? Math.ceil((key.exHours - ((Date.now()-key.Dvalue)/1000)/3600)) : "expired" %>
+                </td>
+                <td style="width: 200px;vertical-align: none !important">
+                    <p style="height:60px;width: 300px;overflow: scroll;padding: 5px;display: inline-block;overflow-x: scroll;">
+                        <%= key.key %></p>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+        <% } else { %>
+        <p class="text-center">No keys found.</p>
+        <% } %>
+
+</div>
+<div>
+    <p class="lead mb-3">select hours for api_key to be Valid</p>
+
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+
+            <form action="/user/apilogin" method="post">
+
+                <select name="hour">
+
+                    <% const options = []; %>
+                    <% for(let i = 1; i <= 12; i++) { %>
+                    <option value='<%= i %>'><%= i %></option>
+                    <% } %>
+                </select>
+                <input type="submit" value="GET" class="btn btn-success" />
+            </form>
+        </div>
+        <div>
+            <a href="/user/logout" class="btn btn-danger" style="text-align: right;">Logout</a>
+
+        </div>
+    </div>
+</div>
