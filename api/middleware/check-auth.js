@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 module.exports = (req,res, next) => {
     try{
-        const decoded = jwt.verify(req.body.token, process.env.JWT_KEY);
+        const decoded = jwt.verify(req.query.api_key, process.env.JWT_KEY);
         req.userData = decoded;
         next();
     } catch (err) {
@@ -10,5 +10,5 @@ module.exports = (req,res, next) => {
         })
     }
 
-
+ 
 };
