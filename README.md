@@ -1,8 +1,7 @@
 # apis-dictionary
 Apis for dictionary words 
 
-To start the server:
-  npm run dev
+
 
 1.Users can Register and Login to application inorder to manage their API keys.
 
